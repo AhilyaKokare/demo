@@ -135,7 +135,11 @@ public class DataController {
 	}
 	
 	@DeleteMapping("/deletetodos/{id}")
-	public String deleteTodos(@PathVariable int id) {
-		return service.deleteTodos(id);
-	}
+	public ResponseEntity<String> deleteTodos(@PathVariable int id) {
+        try {
+            return ResponseEntity.ok(service.deleteTodos(id));
+        } catch (Exception e) {
+            return ResponseEntity.status(404).body("Failed to delete todo with ID: " + id);
+        }
+    }
 }
